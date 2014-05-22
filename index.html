@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Fulcrum Stats</title>
+
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//api.tiles.mapbox.com/mapbox.js/v1.6.3/mapbox.css">
+
+    <link href="assets/css/app.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+    <!-- <div class="container"> -->
+      <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Fulcrum Stats</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <form class="navbar-form navbar-right">
+            <div class="form-group navbardropdown">
+              <label for="context-select" class="control-label navbarlabel">Account:</label>
+              <select class="form-control navbarselect" id="context-select"></select>
+            </div>
+            <div class="form-group navbardropdown">
+              <label for="context-select" class="control-label navbarlabel">App:</label>
+              <select class="form-control navbarselect" id="form-select"></select>
+            </div>
+            <button type="button" class="btn btn-primary hide" id="logout-btn" onclick="logout();"><i class="fa fa-sign-out"></i>&nbsp;Sign Out</button>
+          </form>
+          <ul class="nav navbar-nav">
+            <li><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" onclick="$('#aboutModal').modal('show'); return false;"><i class="fa fa-question-circle fa-white"></i>&nbsp;About</a></li>
+            <li><a href="http://fulcrumapp.com" target="_blank"><i class="fa fa-share-square-o fa-white"></i>&nbsp;Fulcrum</a></li>
+            <li><a href="https://github.com" target="_blank"><i class="fa fa-github-alt fa-white"></i>&nbsp;Fork on GitHub</a></li>
+          </ul>
+        </div><!--/.navbar-collapse -->
+      </div>
+    <!-- </div> -->
+
+    <div id="wrapper">
+      <div id="loading">
+        <div class="loading-indicator">
+          <div class="progress progress-striped active">
+            <div class="progress-bar progress-bar-info loading-bar"></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="sidebar">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title"><span class="text-primary">Total Records</span><a id="download-link" href="#" target="_blank" title="Download data" download="fulcrum-records.csv"><i class="fa fa-cloud-download pull-right"></i></a></h3>
+          </div>
+          <table class="table table-condensed" id="stats-table">
+            <tr>
+              <th>Account:</th>
+              <td class="text-right" id="account"></td>
+            </tr>
+            <tr>
+              <th>App:</th>
+              <td class="text-right" id="app"></td>
+            </tr>
+          </table>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title"><span class="text-primary">Records by Status</span></h3>
+          </div>
+          <table class="table table-condensed" id="status-table"></table>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title"><span class="text-primary">Repeatable Records</span></h3>
+          </div>
+          <table class="table table-condensed" id="repeatable-table"></table>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title"><span class="text-primary">Created by</span></h3>
+          </div>
+          <table class="table table-condensed" id="user-created-table"></table>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title"><span class="text-primary">Updated by</span></h3>
+          </div>
+          <table class="table table-condensed" id="user-updated-table"></table>
+        </div>
+      </div>
+      <div class="thumbnail" id="map"></div>
+    </div>
+    
+    <div class="modal fade" id="fulcrumModal" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-body" id="fulcrum-info"></div>
+          <div class="modal-footer iframe-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="aboutModal" tabindex="-1" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Fulcrum Stats</h4>
+          </div>
+          <div class="modal-body">
+            <p>Fulcrum Stats is an open source project, which utilizes the Fulcrum API for viewing basic record statistics across account contexts and apps.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="loginModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header login-header">
+            <h4 class="modal-title">Sign in
+              <span class="pull-right"><i class="fa fa-sign-in"></i></span></h4>
+          </div>
+          <div class="modal-body">
+            <form role="form">
+              <fieldset>
+                <div class="form-group">
+                  <label for="name">Username</label>
+                  <input type="text" class="form-control" id="email">
+                </div>
+                <div class="form-group">
+                  <label for="email">Password</label>
+                  <input type="password" class="form-control" id="password">
+                </div>
+              </fieldset>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary pull-right" onclick="login();">&nbsp;Sign in</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script src="//api.tiles.mapbox.com/mapbox.js/v1.6.0/mapbox.js"></script>
+    <script src="assets/js/app.js"></script>
+  </body>
+</html>
