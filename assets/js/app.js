@@ -302,7 +302,7 @@ function fetchSpecificRepeatables() {
       if (data.form.status_field.choices) {
         legend = "<ul style='margin: 0;'></ul>";
         $.each(data.form.status_field.choices, function(index, choice) {
-          legend += "<li style='color: "+choice.color+"'>"+choice.label+"</li>";
+          legend += "<li style='white-space: nowrap; color: "+choice.color+";'>"+choice.label+"</li>";
         });
         map.legendControl.addLegend(legend);
       }
