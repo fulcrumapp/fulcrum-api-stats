@@ -14,11 +14,12 @@ var map = L.mapbox.map("map", null, {
   legendControl: {
     position: "bottomleft"
   },
-  attributionControl: false
+  attributionControl: false,
+  infoControl: true
 })
   .addControl(L.mapbox.geocoderControl('spatialnetworks.map-6l9yntw9'))
   .fitBounds([[68.007571, 83.671875], [-31.95216, -137.109375]]);
-map.addControl(L.mapbox.infoControl().addInfo("Developed by <a href='http://spatialnetworks.com/'>Spatial Networks</a> | <a href='https://www.mapbox.com/about/maps/' target='_blank'>© Mapbox © OpenStreetMap</a>"));
+map.infoControl.addInfo("Developed by <a href='http://spatialnetworks.com/'>Spatial Networks</a>");
 
 /* Empty tile & grid layers to hold Fulcrum points */
 var fulcrumTiles = L.tileLayer("", {
