@@ -216,7 +216,7 @@ function fetchRecords() {
     url: "https://api.fulcrumapp.com/api/v2/records.json",
     type: "GET",
     contentType: "application/json",
-    data: { 
+    data: {
       "form_id": $("#form-select").val()
     },
     headers: {
@@ -260,10 +260,10 @@ function fetchTotalRepeatables() {
     url: "https://api.fulcrumapp.com/api/v2/child_records.json",
     type: "GET",
     contentType: "application/json",
-    data: { 
+    data: {
       "newest_first": 1,
       "per_page": 20000,
-      "page": 1, 
+      "page": 1,
       "form_id": $("#form-select").val()
     },
     headers: {
@@ -323,10 +323,10 @@ function getRepeatables(object) {
             url: "https://api.fulcrumapp.com/api/v2/child_records.json",
             type: "GET",
             contentType: "application/json",
-            data: { 
+            data: {
               "newest_first": 1,
               "per_page": 20000,
-              "page": 1, 
+              "page": 1,
               "form_id": $("#form-select").val(),
               "field_key": object.key
             },
