@@ -50,7 +50,7 @@ fulcrumGrid.on("mouseover", function (e) {
 
 fulcrumGrid.on("click", function (e) {
   if (e.data) {
-    $("#fulcrum-info").html("<iframe id='fulcrum-record' src='https://web.fulcrumapp.com/records/"+e.data.id+"' width='100%' height='"+($(document).height()-150)+"px' frameborder=0></iframe>");
+    $("#fulcrum-info").html("<iframe id='fulcrum-record' src='https://web.fulcrumapp.com/records/"+e.data.id+"?embed=1' width='100%' height='"+($(document).height()-150)+"px' frameborder=0></iframe>");
     $("#fulcrumModal").modal("show");
   }
 });
