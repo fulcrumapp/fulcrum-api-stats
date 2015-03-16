@@ -1,3 +1,5 @@
+L.mapbox.accessToken = "pk.eyJ1Ijoic3BhdGlhbG5ldHdvcmtzIiwiYSI6Inp1Nlh1SFkifQ.nw_LKoBPc6D5TY5DCSTf3Q";
+
 var legend;
 
 $(document).ready(function() {
@@ -17,7 +19,7 @@ var map = L.mapbox.map("map", null, {
   attributionControl: false,
   infoControl: true
 })
-  .addControl(L.mapbox.geocoderControl('spatialnetworks.map-6l9yntw9'))
+  .addControl(L.mapbox.geocoderControl("spatialnetworks.map-6l9yntw9"))
   .fitBounds([[68.007571, 83.671875], [-31.95216, -137.109375]]);
 map.infoControl.addInfo("Developed by <a href='http://spatialnetworks.com/'>Spatial Networks</a>");
 
