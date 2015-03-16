@@ -121,7 +121,7 @@ function login() {
     contentType: "application/json",
     dataType: "json",
     headers: {
-      "Authorization": btoa(username + ":" + password)
+      "Authorization": "Basic " + btoa(username + ":" + password)
     },
     statusCode: {
       401: function() {
